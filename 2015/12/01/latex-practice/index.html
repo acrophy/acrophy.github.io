@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Lost Echoes</title>
+  <title>LaTeX Practice with IEEE LaTeX Template | Lost Echoes</title>
   <meta name="author" content="acrophy">
 
   
@@ -28,8 +28,7 @@
     
   </ul>
 </nav></header>
-  <div id="content" class="inner">
-  <article class="post">
+  <div id="content" class="inner"><article class="post">
   
     <div class="gallery">
   <div class="photoset">
@@ -46,7 +45,7 @@
   <header>
     
   
-    <h1 class="title"><a href="/2015/12/01/latex-practice/">LaTeX Practice with IEEE LaTeX Template</a></h1>
+    <h1 class="title">LaTeX Practice with IEEE LaTeX Template</h1>
   
 
     <time datetime="2015-12-01T06:50:10.000Z">
@@ -133,96 +132,7 @@
     
   </div>
   
-</article>
-
-  <article class="post">
-  
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <header>
-    
-  
-    <h1 class="title"><a href="/2015/10/15/deploy-latex/">Deploy LaTeX Environment with Sublime Text 2 and BasicTeX</a></h1>
-  
-
-    <time datetime="2015-10-15T08:16:05.000Z">
-  <span class="day">15</span><span class="month">Oct</span>
-</time>
-  </header>
-  <div class="entry-content">
-    
-      <p>Since I don’t like all the apps contained inside <code>MacTeX</code>, <code>BasicTeX</code> could be an alternative.<br>Also, <code>Skim</code> may be quite useful, I think <code>Preview</code> in OS X is enough.</p>
-<h3 id="Detailed_Steps">Detailed Steps</h3><p>Here’s how I manage to deploy the latex environment on Mac OS X El Capitan:</p>
-<ol>
-<li><p>Install <a href="http://www.tug.org/mactex/morepackages.html" target="_blank" rel="external">BasicTeX</a></p>
-</li>
-<li><p>Install <code>Sublime Text 2</code> or 3 and <a href="https://packagecontrol.io/installation" target="_blank" rel="external">Package Control</a>, restart</p>
-<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">If Package Control is<span class="instruction"> not </span>shown in the command palette, <span class="instruction"></span><br><span class="line">check </span>`Preferences-&gt;Settings-User` to exclude Package Control from <span class="string">"ignored packages"</span>.</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Install <code>LaTexTools</code> from command palette with Package Control.</p>
-</li>
-<li><p>Carefully read the <code>Preferences-&gt;Package Settings-&gt;LaTexTools-&gt;README</code> or just pay attention to:</p>
-<ul>
-<li>Within El Capitan, edit your own <code>LaTeXTools.sublime-settings</code> file (in your <code>User</code> directory) and modify <code>texpath</code> by adding <code>/Library/TeX/texbin</code> as the first entry. Or just use the “LaTeXTools: Reconfigure and migrate settings” command.</li>
-<li>Install <code>latexmk</code>: open Terminal, type <code>sudo tlmgr install latexmk</code>.<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">If <span class="literal">no</span> tlmgr <span class="keyword">is</span> found, maybe you should restart your terminal.</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>Change the default PDF viewer</p>
-<ul>
-<li>Open <code>Packages</code> directory: <code>Preferences-&gt;Browse Packages...</code></li>
-<li>Modify <code>jumpToPDF.py</code>: comment out all the line after <code>if plat == &#39;darwin&#39;:</code>, add <code>subprocess.Popen([‘open’] + [pdffile])</code></li>
-</ul>
-</li>
-<li><p>Change build engine</p>
-<ul>
-<li>Open <code>LaTexTools.sublime-settings</code> at <code>Prefernces-&gt;Package settings</code></li>
-<li>Within the <code>Build engine settings</code>, replace <code>&quot;builder&quot;: &quot;traditional&quot;</code> with <code>simple</code></li>
-</ul>
-</li>
-<li><p>Modify <code>simple</code> build engine to support Chinese(deprecated)</p>
-<ul>
-<li>Open <code>Package</code> directory, find <code>simpleBuilder.py</code> within <code>LaTexTools-&gt;builers</code></li>
-<li>At <code>pdflatex = [&quot;pdflatex&quot;, &quot;-interaction=nonstopmode&quot;, &quot;-synctex=1&quot;]</code>, replace <code>pdflatex</code> with <code>xelatex</code></li>
-<li>Save and compile. <strong>Note</strong> If you encounter <code>sublime package is not found</code>, try <code>Bulid with syntex check</code>.</li>
-</ul>
-</li>
-<li><p>Add following codes to the <code>builder-settings</code> of LaTeXTools.sublime-settings when build engine is <code>default</code> or <code>traditional</code></p>
-<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"program"</span> : <span class="string">"xelatex"</span>,</span><br><span class="line"><span class="string">"command"</span> : [<span class="string">"latexmk"</span>, <span class="string">"-cd"</span>, <span class="string">"-e"</span>, <span class="string">"<span class="variable">$pdflatex</span> = 'xelatex -interaction=nonstopmode -synctex=1 <span class="variable">%S</span> <span class="variable">%O</span>'"</span>, <span class="string">"-f"</span>, <span class="string">"-pdf"</span>],</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-
-    
-    
-    <footer class="meta">
-      
-      
-  <div class="tags">
-<a href="/tags/El-Capitan/">El Capitan</a><a href="/tags/MacTeX/">MacTeX</a><a href="/tags/Sublime-Text-2/">Sublime Text 2</a></div>
-
-      
-    </footer>
-    
-  </div>
-  
-</article>
-
-
-<nav id="pagenavi">
-  
-  
-  <div class="clearfix"></div>
-</nav></div>
+</article></div>
   <footer id="footer" class="inner"><div class="social alignright">
   
   
