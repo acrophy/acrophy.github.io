@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>linuxC-practice | Lost Echoes</title>
+  <meta name="author" content="acrophy">
+
+  
+  <meta name="description" content="This one is lazy. He leaves nothing">
+  
+  
+
+  <link rel="alternate" href="/atom.xml" title="Lost Echoes" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+  
+</head>
+
+<body>
+  <header id="header" class="inner"><nav>
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+</nav></header>
+  <div id="content" class="inner"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <header>
+    
+  
+    <h1 class="title">linuxC-practice</h1>
+  
+
+    <time datetime="2015-12-15T09:07:39.000Z">
+  <span class="day">15</span><span class="month">Dec</span>
+</time>
+  </header>
+  <div class="entry-content">
+    
+      <p>Before starting coding with C, a few things should be done.</p>
+<h2 id="Environment_Setup">Environment Setup</h2><p>Since I use <code>Sublime Text</code> as my editor, some plugins should be installed for easy coding: </p>
+<ul>
+<li><a href="https://packagecontrol.io/packages/Clang-Complete" target="_blank" rel="external">Clang-Complete</a>: C and C++ auto-completion</li>
+</ul>
+<h2 id="Bugs_Encountered">Bugs Encountered</h2><ol>
+<li>Some header files can’t be found, such as <code>time.h</code> or <code>inttypes.h</code> when using <a href="https://packagecontrol.io/packages/Clang-Complete" target="_blank" rel="external">Clang-Complete</a> plugin.<br><strong>Solution:</strong>Change the version number <code>MacOSX10.10</code> to <code>MacOSX10.11</code> at the <code>include_options</code> of the file <code>cc.sublime-settings</code></li>
+<li>Install <code>libpcap-devel</code> instead of <code>libpcap</code> to include <code>pcap.h</code> file as well as <code>libpcap.so</code>.</li>
+</ol>
+<h2 id="Search_Files">Search Files</h2><ol>
+<li>For installed packages, use <code>rpm -q[il]</code></li>
+<li>For a specific file, use <code>locate</code></li>
+</ol>
+<h2 id="Commonly_Used_C_Libraries">Commonly Used C Libraries</h2><ol>
+<li><code>stdlib.h</code>: <code>exit(1)</code></li>
+<li><code>netinet/in.h</code>: <code>htons</code>, <code>struct sockaddr_in</code></li>
+</ol>
+<h2 id="Tips">Tips</h2><ol>
+<li>When using <code>socket</code>, client side can ignore <code>bind</code> since <code>socket</code> will automatically assign one unused port.</li>
+</ol>
+
+    
+    
+    <footer class="meta">
+      
+      
+  <div class="tags">
+<a href="/tags/Linux-C/">Linux C</a><a href="/tags/socket/">socket</a><a href="/tags/timestamp/">timestamp</a></div>
+
+      
+    </footer>
+    
+  </div>
+  
+</article></div>
+  <footer id="footer" class="inner"><div class="social alignright">
+  
+  
+  
+  
+  <a class="rss" href="/atom.xml" title="RSS">RSS</a>
+</div>
+<p>
+  
+  &copy; 2016 acrophy
+  
+</p>
+<div class="clearfix"></div></footer>
+  <script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<div id="phasebeam">
+  <canvas></canvas>
+  <canvas></canvas>
+  <canvas></canvas>
+</div>
+<script src="/js/phasebeam.js"></script>
+</body>
+</html>

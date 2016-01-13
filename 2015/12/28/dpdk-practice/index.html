@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>dpdk-practice | Lost Echoes</title>
+  <meta name="author" content="acrophy">
+
+  
+  <meta name="description" content="This one is lazy. He leaves nothing">
+  
+  
+
+  <link rel="alternate" href="/atom.xml" title="Lost Echoes" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+  
+</head>
+
+<body>
+  <header id="header" class="inner"><nav>
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+</nav></header>
+  <div id="content" class="inner"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <header>
+    
+  
+    <h1 class="title">dpdk-practice</h1>
+  
+
+    <time datetime="2015-12-28T13:27:58.000Z">
+  <span class="day">28</span><span class="month">Dec</span>
+</time>
+  </header>
+  <div class="entry-content">
+    
+      <p>In order to use DPDK, I install CentOS 7 with relatively higher version of Linux kernel &amp; gcc &amp; so on. Before using DPDK, certain resources must be allocated prior to calling functions of DPDK.</p>
+<h2 id="Allocating_Resources">Allocating Resources</h2><ol>
+<li><p>Hugepages</p>
+<ul>
+<li>Reserve: kernel parameters <code>default_hugepagesz=1G hugepagesz=1G hugepages=4</code></li>
+<li>Unmount hugetlbfs</li>
+<li>Allocate: <code>mount -t hugetlbfs nodev /mnt/huge</code></li>
+<li>Check<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// <span class="type">Get</span> the hugepage size.</span><br><span class="line">awk '/<span class="type">Hugepagesize</span>/ &#123;print $<span class="number">2</span>&#125;' /<span class="keyword">proc</span>/meminfo</span><br><span class="line">// <span class="type">Get</span> the total huge page numbers.</span><br><span class="line">awk '/<span class="type">HugePages_Total</span>/ &#123;print $<span class="number">2</span>&#125; ' /<span class="keyword">proc</span>/meminfo</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>Loading kernel modules</p>
+<ul>
+<li><code>sudo modprobe uio_pci_generic</code></li>
+<li><p>For some devices which lack support for legacy interrupts, e.g. virtual function (VF) devices, load <code>igb_uio</code></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">sudo</span> modprobe uio</span><br><span class="line">sudo insmod kmod/igb_uio.ko</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>To run an DPDK application and make use of VFIO, the vfio-pci module must be loaded: <code>sudo modprobe vfio-pci</code></p>
+</li>
+</ul>
+</li>
+<li>Binding network ports<ul>
+<li>Check status of network ports: <code>./tools/dpdk_nic_bind.py --status</code></li>
+<li>Bind: <code>./tools/dpdk_nic_bind.py --bind=uio_pci_generic eth1</code></li>
+<li>Restore: <code>./tools/dpdk_nic_bind.py --bind=ixgbe 82:00.0</code></li>
+</ul>
+</li>
+<li><p>Setting environment variables</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export RTE_SDK=<span class="variable">$HOME</span>/dpdk-<span class="number">2.2</span>.<span class="number">0</span></span><br><span class="line">export RTE_TARGET=x86_64-native-linuxapp-gcc</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Linux core isolation</p>
+</li>
+</ol>
+<h2 id="EAL_Options">EAL Options</h2><ol>
+<li><code>-c COREMASK</code>: An hexadecimal bit mask of the cores to run on</li>
+<li><code>-n NUM</code>: Number of memory channels per processor socket</li>
+<li>For example: <code>./helloworld -c f -n 4</code> means the platform has four memory channels per processor socket, and that cores 0-3 are present and are to be used for running the application</li>
+</ol>
+<h2 id="CenOS_7_grub_boot_settings">CenOS 7 grub boot settings</h2><p>See <a href="http://superuser.com/questions/781300/searching-for-grub-configuration-file-in-centos-7" target="_blank" rel="external">Grub Conf File</a><br>See <a href="http://xmodulo.com/add-kernel-boot-parameters-via-grub-linux.html" target="_blank" rel="external">Add Kernel Boot Parameters on Fedora</a></p>
+<p>In summary, append parameters like <code>name:value</code> to <code>GRUB_CMDLINE_LINUX</code> in the file <code>/etc/default/grub</code> &amp; create new <code>/boot/efi/EFI/centos/grub.cfg</code> using:<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>grub2-mkconfig --output=<span class="regexp">/boot/efi</span><span class="regexp">/EFI/centos</span><span class="regexp">/grub.cfg</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="Encountered_Errors">Encountered Errors</h2><ol>
+<li><code>dpdk_nic_bind.py</code> gets error<br>Check if <code>pciutils</code> is installed.</li>
+<li>Numa node of PCI device returns <code>-1</code><br><code>numactrl</code> is the package to manipulate numa-related operations.<br>Unknown yet.</li>
+</ol>
+<p>## </p>
+
+    
+    
+    <footer class="meta">
+      
+      
+  <div class="tags">
+<a href="/tags/CentOS-7/">CentOS 7</a><a href="/tags/DPDK/">DPDK</a></div>
+
+      
+    </footer>
+    
+  </div>
+  
+</article></div>
+  <footer id="footer" class="inner"><div class="social alignright">
+  
+  
+  
+  
+  <a class="rss" href="/atom.xml" title="RSS">RSS</a>
+</div>
+<p>
+  
+  &copy; 2016 acrophy
+  
+</p>
+<div class="clearfix"></div></footer>
+  <script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<div id="phasebeam">
+  <canvas></canvas>
+  <canvas></canvas>
+  <canvas></canvas>
+</div>
+<script src="/js/phasebeam.js"></script>
+</body>
+</html>
