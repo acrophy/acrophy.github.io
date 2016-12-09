@@ -54,11 +54,11 @@
   </header>
   <div class="entry-content">
     
-      <h3 id="First_of_All">First of All</h3><ul>
+      <h3 id="First-of-All"><a href="#First-of-All" class="headerlink" title="First of All"></a>First of All</h3><ul>
 <li>Although <code>Preview</code> can be enough, <code>Skim</code> would be better if you want inverse search(from PDF to tex file).</li>
 <li>My build engine is <code>simple</code> not <code>default</code> or <code>traditional</code>. Therefore, some methods may only apply to <code>simple</code> build engine.</li>
 </ul>
-<h3 id="Trigger_Inverse_Search">Trigger Inverse Search</h3><ol>
+<h3 id="Trigger-Inverse-Search"><a href="#Trigger-Inverse-Search" class="headerlink" title="Trigger Inverse Search"></a>Trigger Inverse Search</h3><ol>
 <li>Download and install <code>Skim</code>.</li>
 <li>Open Skim, go to <code>Preferences &gt; Sync</code></li>
 <li>Uncheck “Check for file changes” option</li>
@@ -69,12 +69,12 @@
 </li>
 <li>Use <code>shift</code> + <code>cmd</code> + <code>mouse click</code> to trigger inverse search.</li>
 </ol>
-<h3 id="Insert_graphs">Insert graphs</h3><ul>
+<h3 id="Insert-graphs"><a href="#Insert-graphs" class="headerlink" title="Insert graphs"></a>Insert graphs</h3><ul>
 <li>When using <code>xelatex</code>, make sure following packages are declared: <code>fontspec</code>, <code>xunicode</code>, <code>xltxtra</code>.</li>
 <li>When using <code>pdflatex</code>, it seems <code>\usepackage{graphicx}</code> is enough instead of <code>\usepackage[pdftex]{graphicx}</code>.</li>
 </ul>
-<h3 id="Insert_graphs_across_two_columns">Insert graphs across two columns</h3><p>Use <code>\begin{figure*}</code> instead of <code>\begin{figure}</code></p>
-<h3 id="Commonly_used_figure_options">Commonly used figure options</h3><ul>
+<h3 id="Insert-graphs-across-two-columns"><a href="#Insert-graphs-across-two-columns" class="headerlink" title="Insert graphs across two columns"></a>Insert graphs across two columns</h3><p>Use <code>\begin{figure*}</code> instead of <code>\begin{figure}</code></p>
+<h3 id="Commonly-used-figure-options"><a href="#Commonly-used-figure-options" class="headerlink" title="Commonly used figure options"></a>Commonly used figure options</h3><ul>
 <li><code>t</code>, top of page</li>
 <li><code>b</code>, bottom of page</li>
 <li><code>h</code>, just where the figure is claimed</li>
@@ -83,28 +83,28 @@
 <li>By default, options are <code>tbp</code></li>
 <li><code>!t</code> &amp; <code>!b</code> are ennough</li>
 </ul>
-<h3 id="Commonly_used_graph_options">Commonly used graph options</h3><ul>
+<h3 id="Commonly-used-graph-options"><a href="#Commonly-used-graph-options" class="headerlink" title="Commonly used graph options"></a>Commonly used graph options</h3><ul>
 <li><code>width=XX\textwidth</code>, where <code>XX</code> represents the scale of the graph compared with textwidth, e.g. <code>0.4</code>.</li>
 </ul>
-<h3 id="About_Citations">About Citations</h3><ul>
+<h3 id="About-Citations"><a href="#About-Citations" class="headerlink" title="About Citations"></a>About Citations</h3><ul>
 <li><p>No references appending even when the compilation is success. Look into <code>.blg</code> file, find <code>I couldn&#39;t open style file IEEEtran.bst</code> error. Then, just install the package <code>IEEEtran</code> since I use <code>BasicTeX</code>.</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tlmgr <span class="keyword">install</span> IEEEtran</span><br></pre></td></tr></table></figure>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tlmgr <span class="keyword">install</span> IEEEtran</div></pre></td></tr></table></figure>
 </li>
 <li><p>Handle references like url</p>
 <ol>
 <li>Include <code>\usepackage{url}</code> in preamble.</li>
-<li>Use <code>@misc</code> type for references, for example:<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml">@misc</span><span class="expression">&#123;<span class="variable">ofspec</span>1<span class="variable">.</span>3,</span><br><span class="line">  <span class="variable">title</span>=&#123;<span class="variable">OpenFlow</span> <span class="variable">Switch</span> <span class="variable">Specification</span>&#125;</span><span class="xml">,</span><br><span class="line">  author=</span><span class="expression">&#123;<span class="variable">Open</span> <span class="variable">Network</span> <span class="variable">Foundation</span>&#125;</span><span class="xml">,</span><br><span class="line">  howpublished=</span><span class="expression">&#123;\<span class="variable">url</span>&#123;<span class="variable">https</span>:/<span class="end-block">/www.opennetworking.org</span><span class="end-block">/images</span><span class="end-block">/stories</span><span class="end-block">/downloads</span><span class="end-block">/sdn-resources</span><span class="end-block">/onf-specifications</span><span class="end-block">/openflow</span><span class="end-block">/openflow-spec-v</span>1<span class="variable">.</span>3<span class="variable">.</span>0<span class="variable">.pdf</span>&#125;</span><span class="xml">&#125;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure>
+<li>Use <code>@misc</code> type for references, for example:<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@misc&#123;ofspec1.<span class="number">3</span>,</div><div class="line">  title=&#123;OpenFlow Switch Specification&#125;,</div><div class="line">  author=&#123;Open Network Foundation&#125;,</div><div class="line">  howpublished=&#123;\url&#123;https://www.opennetworking.org/images/stories/downloads/sdn-resources/onf-specifications/openflow/openflow-spec-v1.<span class="number">3.0</span>.pdf&#125;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 </ol>
 </li>
 </ul>
-<h3 id="About_Hyperref">About Hyperref</h3><ul>
+<h3 id="About-Hyperref"><a href="#About-Hyperref" class="headerlink" title="About Hyperref"></a>About Hyperref</h3><ul>
 <li>Make sure <code>\usepackage{hyperref}</code> is the last command in your preamble.</li>
 <li>References for figures and tables will not automatically be shown as <code>Fig. 1</code>, so just type <code>Fig. \ref{your figure name}</code></li>
 <li>References to section header: place <code>\label{sec2}</code> just below <code>\section{Related Works}</code></li>
 <li>References to email addresses: <code>\href{mailto:XXX@sjtu.edu.cn}{XXX}</code></li>
 </ul>
-<h3 id="Special_Characters">Special Characters</h3><ul>
+<h3 id="Special-Characters"><a href="#Special-Characters" class="headerlink" title="Special Characters"></a>Special Characters</h3><ul>
 <li><code>\#</code>, <code>\$</code>, <code>\%</code>, <code>\&amp;</code>, <code>\_</code>, <code>\{</code>, <code>\}</code></li>
 <li><code>\^{}</code>, <code>\~{}</code> are relatively on top of the line.</li>
 <li><code>$\backslash$</code> shows <code>\</code></li>
@@ -112,11 +112,28 @@
 <li><code>$sim$</code> tilde <code>~</code></li>
 <li><code>\ldots</code> ellipsis</li>
 </ul>
-<h3 id="Font_Commands">Font Commands</h3><ul>
+<h3 id="Font-Commands"><a href="#Font-Commands" class="headerlink" title="Font Commands"></a>Font Commands</h3><ul>
 <li><code>\underline{XXX}</code>, <code>\emph{XXX}</code></li>
 <li><code>\textit{XXX}</code>: <em>XXX</em></li>
 <li><code>\textbf{XXX}</code>: <strong>XXX</strong></li>
 <li><code>{\small XXX}</code>, <code>{\large XXX}</code></li>
+</ul>
+<h3 id="Search-Packages-amp-Fonts"><a href="#Search-Packages-amp-Fonts" class="headerlink" title="Search Packages &amp; Fonts"></a>Search Packages &amp; Fonts</h3><ul>
+<li><p>To search packages:</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tlmgr <span class="keyword">search</span> --<span class="keyword">global</span> [Package Name]</div></pre></td></tr></table></figure>
+</li>
+<li><p>To search a specific file, e.g. a font file <code>zxxrl7z.tfm</code>:</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tlmgr <span class="keyword">search</span> --<span class="keyword">global</span> --<span class="keyword">file</span> [<span class="keyword">File</span> Name]</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Extra-Packages"><a href="#Extra-Packages" class="headerlink" title="Extra Packages"></a>Extra Packages</h3><ul>
+<li>IEEEtran</li>
+<li>newtx for package <code>newtxmath</code></li>
+<li>algorithms for package <code>algorithm(floating environment)</code> &amp; <code>algorithmic</code></li>
+<li>algorithmicx for package <code>algorithmicx</code> &amp; <code>algpseudocode</code></li>
+<li>txfont for font <code>txsyb</code>, <code>txmi</code>, <code>txmia</code> , <code>txsyc</code>, <code>txr</code></li>
+<li>boondox for font <code>zxxrl7z</code></li>
+<li>tex-gyre for file <code>qtmr.pfb</code></li>
 </ul>
 
     

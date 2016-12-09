@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>linuxC-practice | Lost Echoes</title>
+  <title>LinuxC Practice | Lost Echoes</title>
   <meta name="author" content="acrophy">
 
   
@@ -45,7 +45,7 @@
   <header>
     
   
-    <h1 class="title">linuxC-practice</h1>
+    <h1 class="title">LinuxC Practice</h1>
   
 
     <time datetime="2015-12-15T09:07:39.000Z">
@@ -55,23 +55,23 @@
   <div class="entry-content">
     
       <p>Before starting coding with C, a few things should be done.</p>
-<h2 id="Environment_Setup">Environment Setup</h2><p>Since I use <code>Sublime Text</code> as my editor, some plugins should be installed for easy coding: </p>
+<h2 id="Environment-Setup"><a href="#Environment-Setup" class="headerlink" title="Environment Setup"></a>Environment Setup</h2><p>Since I use <code>Sublime Text</code> as my editor, some plugins should be installed for easy coding: </p>
 <ul>
 <li><a href="https://packagecontrol.io/packages/Clang-Complete" target="_blank" rel="external">Clang-Complete</a>: C and C++ auto-completion</li>
 </ul>
-<h2 id="Bugs_Encountered">Bugs Encountered</h2><ol>
+<h2 id="Bugs-Encountered"><a href="#Bugs-Encountered" class="headerlink" title="Bugs Encountered"></a>Bugs Encountered</h2><ol>
 <li>Some header files can’t be found, such as <code>time.h</code> or <code>inttypes.h</code> when using <a href="https://packagecontrol.io/packages/Clang-Complete" target="_blank" rel="external">Clang-Complete</a> plugin.<br><strong>Solution:</strong>Change the version number <code>MacOSX10.10</code> to <code>MacOSX10.11</code> at the <code>include_options</code> of the file <code>cc.sublime-settings</code></li>
 <li>Install <code>libpcap-devel</code> instead of <code>libpcap</code> to include <code>pcap.h</code> file as well as <code>libpcap.so</code>.</li>
 </ol>
-<h2 id="Search_Files">Search Files</h2><ol>
+<h2 id="Search-Files"><a href="#Search-Files" class="headerlink" title="Search Files"></a>Search Files</h2><ol>
 <li>For installed packages, use <code>rpm -q[il]</code></li>
 <li>For a specific file, use <code>locate</code></li>
 </ol>
-<h2 id="Commonly_Used_C_Libraries">Commonly Used C Libraries</h2><ol>
+<h2 id="Commonly-Used-C-Libraries"><a href="#Commonly-Used-C-Libraries" class="headerlink" title="Commonly Used C Libraries"></a>Commonly Used C Libraries</h2><ol>
 <li><code>stdlib.h</code>: <code>exit(1)</code></li>
 <li><code>netinet/in.h</code>: <code>htons</code>, <code>struct sockaddr_in</code></li>
 </ol>
-<h2 id="Tips">Tips</h2><ol>
+<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><ol>
 <li>When using <code>socket</code>, client side can ignore <code>bind</code> since <code>socket</code> will automatically assign one unused port.</li>
 </ol>
 

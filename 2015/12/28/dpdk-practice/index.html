@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>dpdk-practice | Lost Echoes</title>
+  <title>DPDK Practice | Lost Echoes</title>
   <meta name="author" content="acrophy">
 
   
@@ -45,7 +45,7 @@
   <header>
     
   
-    <h1 class="title">dpdk-practice</h1>
+    <h1 class="title">DPDK Practice</h1>
   
 
     <time datetime="2015-12-28T13:27:58.000Z">
@@ -55,13 +55,13 @@
   <div class="entry-content">
     
       <p>In order to use DPDK, I install CentOS 7 with relatively higher version of Linux kernel &amp; gcc &amp; so on. Before using DPDK, certain resources must be allocated prior to calling functions of DPDK.</p>
-<h2 id="Allocating_Resources">Allocating Resources</h2><ol>
+<h2 id="Allocating-Resources"><a href="#Allocating-Resources" class="headerlink" title="Allocating Resources"></a>Allocating Resources</h2><ol>
 <li><p>Hugepages</p>
 <ul>
 <li>Reserve: kernel parameters <code>default_hugepagesz=1G hugepagesz=1G hugepages=4</code></li>
 <li>Unmount hugetlbfs</li>
 <li>Allocate: <code>mount -t hugetlbfs nodev /mnt/huge</code></li>
-<li>Check<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// <span class="type">Get</span> the hugepage size.</span><br><span class="line">awk '/<span class="type">Hugepagesize</span>/ &#123;print $<span class="number">2</span>&#125;' /<span class="keyword">proc</span>/meminfo</span><br><span class="line">// <span class="type">Get</span> the total huge page numbers.</span><br><span class="line">awk '/<span class="type">HugePages_Total</span>/ &#123;print $<span class="number">2</span>&#125; ' /<span class="keyword">proc</span>/meminfo</span><br></pre></td></tr></table></figure>
+<li>Check<figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Get the hugepage size.</span></div><div class="line">awk <span class="string">'/Hugepagesize/ &#123;print $2&#125;'</span> <span class="regexp">/proc/m</span>eminfo</div><div class="line"><span class="comment">// Get the total huge page numbers.</span></div><div class="line">awk <span class="string">'/HugePages_Total/ &#123;print $2&#125; '</span> <span class="regexp">/proc/m</span>eminfo</div></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
@@ -69,7 +69,7 @@
 <ul>
 <li><code>sudo modprobe uio_pci_generic</code></li>
 <li><p>For some devices which lack support for legacy interrupts, e.g. virtual function (VF) devices, load <code>igb_uio</code></p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">sudo</span> modprobe uio</span><br><span class="line">sudo insmod kmod/igb_uio.ko</span><br></pre></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">sudo</span> modprobe uio</div><div class="line">sudo insmod kmod/igb_uio.ko</div></pre></td></tr></table></figure>
 </li>
 <li><p>To run an DPDK application and make use of VFIO, the vfio-pci module must be loaded: <code>sudo modprobe vfio-pci</code></p>
 </li>
@@ -82,19 +82,19 @@
 </ul>
 </li>
 <li><p>Setting environment variables</p>
-<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export RTE_SDK=<span class="variable">$HOME</span>/dpdk-<span class="number">2.2</span>.<span class="number">0</span></span><br><span class="line">export RTE_TARGET=x86_64-native-linuxapp-gcc</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">export</span> RTE_SDK=<span class="variable">$HOME</span>/dpdk-2.2.0</div><div class="line"><span class="built_in">export</span> RTE_TARGET=x86_64-native-linuxapp-gcc</div></pre></td></tr></table></figure>
 </li>
 <li><p>Linux core isolation</p>
 </li>
 </ol>
-<h2 id="EAL_Options">EAL Options</h2><ol>
+<h2 id="EAL-Options"><a href="#EAL-Options" class="headerlink" title="EAL Options"></a>EAL Options</h2><ol>
 <li><code>-c COREMASK</code>: An hexadecimal bit mask of the cores to run on</li>
 <li><code>-n NUM</code>: Number of memory channels per processor socket</li>
 <li>For example: <code>./helloworld -c f -n 4</code> means the platform has four memory channels per processor socket, and that cores 0-3 are present and are to be used for running the application</li>
 </ol>
-<h2 id="CenOS_7_grub_boot_settings">CenOS 7 grub boot settings</h2><p>See <a href="http://superuser.com/questions/781300/searching-for-grub-configuration-file-in-centos-7" target="_blank" rel="external">Grub Conf File</a><br>See <a href="http://xmodulo.com/add-kernel-boot-parameters-via-grub-linux.html" target="_blank" rel="external">Add Kernel Boot Parameters on Fedora</a></p>
-<p>In summary, append parameters like <code>name:value</code> to <code>GRUB_CMDLINE_LINUX</code> in the file <code>/etc/default/grub</code> &amp; create new <code>/boot/efi/EFI/centos/grub.cfg</code> using:<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>grub2-mkconfig --output=<span class="regexp">/boot/efi</span><span class="regexp">/EFI/centos</span><span class="regexp">/grub.cfg</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="Encountered_Errors">Encountered Errors</h2><ol>
+<h2 id="CenOS-7-grub-boot-settings"><a href="#CenOS-7-grub-boot-settings" class="headerlink" title="CenOS 7 grub boot settings"></a>CenOS 7 grub boot settings</h2><p>See <a href="http://superuser.com/questions/781300/searching-for-grub-configuration-file-in-centos-7" target="_blank" rel="external">Grub Conf File</a><br>See <a href="http://xmodulo.com/add-kernel-boot-parameters-via-grub-linux.html" target="_blank" rel="external">Add Kernel Boot Parameters on Fedora</a></p>
+<p>In summary, append parameters like <code>name:value</code> to <code>GRUB_CMDLINE_LINUX</code> in the file <code>/etc/default/grub</code> &amp; create new <code>/boot/efi/EFI/centos/grub.cfg</code> using:<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>grub2-mkconfig --output=<span class="regexp">/boot/efi</span><span class="regexp">/EFI/centos</span><span class="regexp">/grub.cfg</span></div></pre></td></tr></table></figure></p>
+<h2 id="Encountered-Errors"><a href="#Encountered-Errors" class="headerlink" title="Encountered Errors"></a>Encountered Errors</h2><ol>
 <li><code>dpdk_nic_bind.py</code> gets error<br>Check if <code>pciutils</code> is installed.</li>
 <li>Numa node of PCI device returns <code>-1</code><br><code>numactrl</code> is the package to manipulate numa-related operations.<br>Unknown yet.</li>
 </ol>
@@ -106,7 +106,7 @@
       
       
   <div class="tags">
-<a href="/tags/CentOS-7/">CentOS 7</a><a href="/tags/DPDK/">DPDK</a></div>
+<a href="/tags/DPDK/">DPDK</a><a href="/tags/CentOS-7/">CentOS 7</a></div>
 
       
     </footer>

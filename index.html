@@ -46,46 +46,7 @@
   <header>
     
   
-    <h1 class="title"><a href="/2016/01/07/dpdk-programming/">dpdk-programming</a></h1>
-  
-
-    <time datetime="2016-01-07T03:14:55.000Z">
-  <span class="day">7</span><span class="month">Jan</span>
-</time>
-  </header>
-  <div class="entry-content">
-    
-      
-    
-    
-    <footer class="meta">
-      
-      
-      
-    </footer>
-    
-  </div>
-  
-</article>
-
-  <article class="post">
-  
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <header>
-    
-  
-    <h1 class="title"><a href="/2015/12/28/dpdk-practice/">dpdk-practice</a></h1>
+    <h1 class="title"><a href="/2015/12/28/dpdk-practice/">DPDK Practice</a></h1>
   
 
     <time datetime="2015-12-28T13:27:58.000Z">
@@ -95,13 +56,13 @@
   <div class="entry-content">
     
       <p>In order to use DPDK, I install CentOS 7 with relatively higher version of Linux kernel &amp; gcc &amp; so on. Before using DPDK, certain resources must be allocated prior to calling functions of DPDK.</p>
-<h2 id="Allocating_Resources">Allocating Resources</h2><ol>
+<h2 id="Allocating-Resources"><a href="#Allocating-Resources" class="headerlink" title="Allocating Resources"></a>Allocating Resources</h2><ol>
 <li><p>Hugepages</p>
 <ul>
 <li>Reserve: kernel parameters <code>default_hugepagesz=1G hugepagesz=1G hugepages=4</code></li>
 <li>Unmount hugetlbfs</li>
 <li>Allocate: <code>mount -t hugetlbfs nodev /mnt/huge</code></li>
-<li>Check<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// <span class="type">Get</span> the hugepage size.</span><br><span class="line">awk '/<span class="type">Hugepagesize</span>/ &#123;print $<span class="number">2</span>&#125;' /<span class="keyword">proc</span>/meminfo</span><br><span class="line">// <span class="type">Get</span> the total huge page numbers.</span><br><span class="line">awk '/<span class="type">HugePages_Total</span>/ &#123;print $<span class="number">2</span>&#125; ' /<span class="keyword">proc</span>/meminfo</span><br></pre></td></tr></table></figure>
+<li>Check<figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Get the hugepage size.</span></div><div class="line">awk <span class="string">'/Hugepagesize/ &#123;print $2&#125;'</span> <span class="regexp">/proc/m</span>eminfo</div><div class="line"><span class="comment">// Get the total huge page numbers.</span></div><div class="line">awk <span class="string">'/HugePages_Total/ &#123;print $2&#125; '</span> <span class="regexp">/proc/m</span>eminfo</div></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
@@ -109,7 +70,7 @@
 <ul>
 <li><code>sudo modprobe uio_pci_generic</code></li>
 <li><p>For some devices which lack support for legacy interrupts, e.g. virtual function (VF) devices, load <code>igb_uio</code></p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">sudo</span> modprobe uio</span><br><span class="line">sudo insmod kmod/igb_uio.ko</span><br></pre></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">sudo</span> modprobe uio</div><div class="line">sudo insmod kmod/igb_uio.ko</div></pre></td></tr></table></figure>
 </li>
 <li><p>To run an DPDK application and make use of VFIO, the vfio-pci module must be loaded: <code>sudo modprobe vfio-pci</code></p>
 </li>
@@ -122,19 +83,19 @@
 </ul>
 </li>
 <li><p>Setting environment variables</p>
-<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export RTE_SDK=<span class="variable">$HOME</span>/dpdk-<span class="number">2.2</span>.<span class="number">0</span></span><br><span class="line">export RTE_TARGET=x86_64-native-linuxapp-gcc</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">export</span> RTE_SDK=<span class="variable">$HOME</span>/dpdk-2.2.0</div><div class="line"><span class="built_in">export</span> RTE_TARGET=x86_64-native-linuxapp-gcc</div></pre></td></tr></table></figure>
 </li>
 <li><p>Linux core isolation</p>
 </li>
 </ol>
-<h2 id="EAL_Options">EAL Options</h2><ol>
+<h2 id="EAL-Options"><a href="#EAL-Options" class="headerlink" title="EAL Options"></a>EAL Options</h2><ol>
 <li><code>-c COREMASK</code>: An hexadecimal bit mask of the cores to run on</li>
 <li><code>-n NUM</code>: Number of memory channels per processor socket</li>
 <li>For example: <code>./helloworld -c f -n 4</code> means the platform has four memory channels per processor socket, and that cores 0-3 are present and are to be used for running the application</li>
 </ol>
-<h2 id="CenOS_7_grub_boot_settings">CenOS 7 grub boot settings</h2><p>See <a href="http://superuser.com/questions/781300/searching-for-grub-configuration-file-in-centos-7" target="_blank" rel="external">Grub Conf File</a><br>See <a href="http://xmodulo.com/add-kernel-boot-parameters-via-grub-linux.html" target="_blank" rel="external">Add Kernel Boot Parameters on Fedora</a></p>
-<p>In summary, append parameters like <code>name:value</code> to <code>GRUB_CMDLINE_LINUX</code> in the file <code>/etc/default/grub</code> &amp; create new <code>/boot/efi/EFI/centos/grub.cfg</code> using:<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>grub2-mkconfig --output=<span class="regexp">/boot/efi</span><span class="regexp">/EFI/centos</span><span class="regexp">/grub.cfg</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="Encountered_Errors">Encountered Errors</h2><ol>
+<h2 id="CenOS-7-grub-boot-settings"><a href="#CenOS-7-grub-boot-settings" class="headerlink" title="CenOS 7 grub boot settings"></a>CenOS 7 grub boot settings</h2><p>See <a href="http://superuser.com/questions/781300/searching-for-grub-configuration-file-in-centos-7" target="_blank" rel="external">Grub Conf File</a><br>See <a href="http://xmodulo.com/add-kernel-boot-parameters-via-grub-linux.html" target="_blank" rel="external">Add Kernel Boot Parameters on Fedora</a></p>
+<p>In summary, append parameters like <code>name:value</code> to <code>GRUB_CMDLINE_LINUX</code> in the file <code>/etc/default/grub</code> &amp; create new <code>/boot/efi/EFI/centos/grub.cfg</code> using:<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>grub2-mkconfig --output=<span class="regexp">/boot/efi</span><span class="regexp">/EFI/centos</span><span class="regexp">/grub.cfg</span></div></pre></td></tr></table></figure></p>
+<h2 id="Encountered-Errors"><a href="#Encountered-Errors" class="headerlink" title="Encountered Errors"></a>Encountered Errors</h2><ol>
 <li><code>dpdk_nic_bind.py</code> gets error<br>Check if <code>pciutils</code> is installed.</li>
 <li>Numa node of PCI device returns <code>-1</code><br><code>numactrl</code> is the package to manipulate numa-related operations.<br>Unknown yet.</li>
 </ol>
@@ -146,7 +107,7 @@
       
       
   <div class="tags">
-<a href="/tags/CentOS-7/">CentOS 7</a><a href="/tags/DPDK/">DPDK</a></div>
+<a href="/tags/DPDK/">DPDK</a><a href="/tags/CentOS-7/">CentOS 7</a></div>
 
       
     </footer>
@@ -172,7 +133,7 @@
   <header>
     
   
-    <h1 class="title"><a href="/2015/12/15/linuxC-practice/">linuxC-practice</a></h1>
+    <h1 class="title"><a href="/2015/12/15/linuxC-practice/">LinuxC Practice</a></h1>
   
 
     <time datetime="2015-12-15T09:07:39.000Z">
@@ -182,23 +143,23 @@
   <div class="entry-content">
     
       <p>Before starting coding with C, a few things should be done.</p>
-<h2 id="Environment_Setup">Environment Setup</h2><p>Since I use <code>Sublime Text</code> as my editor, some plugins should be installed for easy coding: </p>
+<h2 id="Environment-Setup"><a href="#Environment-Setup" class="headerlink" title="Environment Setup"></a>Environment Setup</h2><p>Since I use <code>Sublime Text</code> as my editor, some plugins should be installed for easy coding: </p>
 <ul>
 <li><a href="https://packagecontrol.io/packages/Clang-Complete" target="_blank" rel="external">Clang-Complete</a>: C and C++ auto-completion</li>
 </ul>
-<h2 id="Bugs_Encountered">Bugs Encountered</h2><ol>
+<h2 id="Bugs-Encountered"><a href="#Bugs-Encountered" class="headerlink" title="Bugs Encountered"></a>Bugs Encountered</h2><ol>
 <li>Some header files can’t be found, such as <code>time.h</code> or <code>inttypes.h</code> when using <a href="https://packagecontrol.io/packages/Clang-Complete" target="_blank" rel="external">Clang-Complete</a> plugin.<br><strong>Solution:</strong>Change the version number <code>MacOSX10.10</code> to <code>MacOSX10.11</code> at the <code>include_options</code> of the file <code>cc.sublime-settings</code></li>
 <li>Install <code>libpcap-devel</code> instead of <code>libpcap</code> to include <code>pcap.h</code> file as well as <code>libpcap.so</code>.</li>
 </ol>
-<h2 id="Search_Files">Search Files</h2><ol>
+<h2 id="Search-Files"><a href="#Search-Files" class="headerlink" title="Search Files"></a>Search Files</h2><ol>
 <li>For installed packages, use <code>rpm -q[il]</code></li>
 <li>For a specific file, use <code>locate</code></li>
 </ol>
-<h2 id="Commonly_Used_C_Libraries">Commonly Used C Libraries</h2><ol>
+<h2 id="Commonly-Used-C-Libraries"><a href="#Commonly-Used-C-Libraries" class="headerlink" title="Commonly Used C Libraries"></a>Commonly Used C Libraries</h2><ol>
 <li><code>stdlib.h</code>: <code>exit(1)</code></li>
 <li><code>netinet/in.h</code>: <code>htons</code>, <code>struct sockaddr_in</code></li>
 </ol>
-<h2 id="Tips">Tips</h2><ol>
+<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><ol>
 <li>When using <code>socket</code>, client side can ignore <code>bind</code> since <code>socket</code> will automatically assign one unused port.</li>
 </ol>
 
@@ -243,11 +204,11 @@
   </header>
   <div class="entry-content">
     
-      <h3 id="First_of_All">First of All</h3><ul>
+      <h3 id="First-of-All"><a href="#First-of-All" class="headerlink" title="First of All"></a>First of All</h3><ul>
 <li>Although <code>Preview</code> can be enough, <code>Skim</code> would be better if you want inverse search(from PDF to tex file).</li>
 <li>My build engine is <code>simple</code> not <code>default</code> or <code>traditional</code>. Therefore, some methods may only apply to <code>simple</code> build engine.</li>
 </ul>
-<h3 id="Trigger_Inverse_Search">Trigger Inverse Search</h3><ol>
+<h3 id="Trigger-Inverse-Search"><a href="#Trigger-Inverse-Search" class="headerlink" title="Trigger Inverse Search"></a>Trigger Inverse Search</h3><ol>
 <li>Download and install <code>Skim</code>.</li>
 <li>Open Skim, go to <code>Preferences &gt; Sync</code></li>
 <li>Uncheck “Check for file changes” option</li>
@@ -258,12 +219,12 @@
 </li>
 <li>Use <code>shift</code> + <code>cmd</code> + <code>mouse click</code> to trigger inverse search.</li>
 </ol>
-<h3 id="Insert_graphs">Insert graphs</h3><ul>
+<h3 id="Insert-graphs"><a href="#Insert-graphs" class="headerlink" title="Insert graphs"></a>Insert graphs</h3><ul>
 <li>When using <code>xelatex</code>, make sure following packages are declared: <code>fontspec</code>, <code>xunicode</code>, <code>xltxtra</code>.</li>
 <li>When using <code>pdflatex</code>, it seems <code>\usepackage{graphicx}</code> is enough instead of <code>\usepackage[pdftex]{graphicx}</code>.</li>
 </ul>
-<h3 id="Insert_graphs_across_two_columns">Insert graphs across two columns</h3><p>Use <code>\begin{figure*}</code> instead of <code>\begin{figure}</code></p>
-<h3 id="Commonly_used_figure_options">Commonly used figure options</h3><ul>
+<h3 id="Insert-graphs-across-two-columns"><a href="#Insert-graphs-across-two-columns" class="headerlink" title="Insert graphs across two columns"></a>Insert graphs across two columns</h3><p>Use <code>\begin{figure*}</code> instead of <code>\begin{figure}</code></p>
+<h3 id="Commonly-used-figure-options"><a href="#Commonly-used-figure-options" class="headerlink" title="Commonly used figure options"></a>Commonly used figure options</h3><ul>
 <li><code>t</code>, top of page</li>
 <li><code>b</code>, bottom of page</li>
 <li><code>h</code>, just where the figure is claimed</li>
@@ -272,28 +233,28 @@
 <li>By default, options are <code>tbp</code></li>
 <li><code>!t</code> &amp; <code>!b</code> are ennough</li>
 </ul>
-<h3 id="Commonly_used_graph_options">Commonly used graph options</h3><ul>
+<h3 id="Commonly-used-graph-options"><a href="#Commonly-used-graph-options" class="headerlink" title="Commonly used graph options"></a>Commonly used graph options</h3><ul>
 <li><code>width=XX\textwidth</code>, where <code>XX</code> represents the scale of the graph compared with textwidth, e.g. <code>0.4</code>.</li>
 </ul>
-<h3 id="About_Citations">About Citations</h3><ul>
+<h3 id="About-Citations"><a href="#About-Citations" class="headerlink" title="About Citations"></a>About Citations</h3><ul>
 <li><p>No references appending even when the compilation is success. Look into <code>.blg</code> file, find <code>I couldn&#39;t open style file IEEEtran.bst</code> error. Then, just install the package <code>IEEEtran</code> since I use <code>BasicTeX</code>.</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tlmgr <span class="keyword">install</span> IEEEtran</span><br></pre></td></tr></table></figure>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tlmgr <span class="keyword">install</span> IEEEtran</div></pre></td></tr></table></figure>
 </li>
 <li><p>Handle references like url</p>
 <ol>
 <li>Include <code>\usepackage{url}</code> in preamble.</li>
-<li>Use <code>@misc</code> type for references, for example:<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml">@misc</span><span class="expression">&#123;<span class="variable">ofspec</span>1<span class="variable">.</span>3,</span><br><span class="line">  <span class="variable">title</span>=&#123;<span class="variable">OpenFlow</span> <span class="variable">Switch</span> <span class="variable">Specification</span>&#125;</span><span class="xml">,</span><br><span class="line">  author=</span><span class="expression">&#123;<span class="variable">Open</span> <span class="variable">Network</span> <span class="variable">Foundation</span>&#125;</span><span class="xml">,</span><br><span class="line">  howpublished=</span><span class="expression">&#123;\<span class="variable">url</span>&#123;<span class="variable">https</span>:/<span class="end-block">/www.opennetworking.org</span><span class="end-block">/images</span><span class="end-block">/stories</span><span class="end-block">/downloads</span><span class="end-block">/sdn-resources</span><span class="end-block">/onf-specifications</span><span class="end-block">/openflow</span><span class="end-block">/openflow-spec-v</span>1<span class="variable">.</span>3<span class="variable">.</span>0<span class="variable">.pdf</span>&#125;</span><span class="xml">&#125;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure>
+<li>Use <code>@misc</code> type for references, for example:<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@misc&#123;ofspec1.<span class="number">3</span>,</div><div class="line">  title=&#123;OpenFlow Switch Specification&#125;,</div><div class="line">  author=&#123;Open Network Foundation&#125;,</div><div class="line">  howpublished=&#123;\url&#123;https://www.opennetworking.org/images/stories/downloads/sdn-resources/onf-specifications/openflow/openflow-spec-v1.<span class="number">3.0</span>.pdf&#125;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 </ol>
 </li>
 </ul>
-<h3 id="About_Hyperref">About Hyperref</h3><ul>
+<h3 id="About-Hyperref"><a href="#About-Hyperref" class="headerlink" title="About Hyperref"></a>About Hyperref</h3><ul>
 <li>Make sure <code>\usepackage{hyperref}</code> is the last command in your preamble.</li>
 <li>References for figures and tables will not automatically be shown as <code>Fig. 1</code>, so just type <code>Fig. \ref{your figure name}</code></li>
 <li>References to section header: place <code>\label{sec2}</code> just below <code>\section{Related Works}</code></li>
 <li>References to email addresses: <code>\href{mailto:XXX@sjtu.edu.cn}{XXX}</code></li>
 </ul>
-<h3 id="Special_Characters">Special Characters</h3><ul>
+<h3 id="Special-Characters"><a href="#Special-Characters" class="headerlink" title="Special Characters"></a>Special Characters</h3><ul>
 <li><code>\#</code>, <code>\$</code>, <code>\%</code>, <code>\&amp;</code>, <code>\_</code>, <code>\{</code>, <code>\}</code></li>
 <li><code>\^{}</code>, <code>\~{}</code> are relatively on top of the line.</li>
 <li><code>$\backslash$</code> shows <code>\</code></li>
@@ -301,11 +262,28 @@
 <li><code>$sim$</code> tilde <code>~</code></li>
 <li><code>\ldots</code> ellipsis</li>
 </ul>
-<h3 id="Font_Commands">Font Commands</h3><ul>
+<h3 id="Font-Commands"><a href="#Font-Commands" class="headerlink" title="Font Commands"></a>Font Commands</h3><ul>
 <li><code>\underline{XXX}</code>, <code>\emph{XXX}</code></li>
 <li><code>\textit{XXX}</code>: <em>XXX</em></li>
 <li><code>\textbf{XXX}</code>: <strong>XXX</strong></li>
 <li><code>{\small XXX}</code>, <code>{\large XXX}</code></li>
+</ul>
+<h3 id="Search-Packages-amp-Fonts"><a href="#Search-Packages-amp-Fonts" class="headerlink" title="Search Packages &amp; Fonts"></a>Search Packages &amp; Fonts</h3><ul>
+<li><p>To search packages:</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tlmgr <span class="keyword">search</span> --<span class="keyword">global</span> [Package Name]</div></pre></td></tr></table></figure>
+</li>
+<li><p>To search a specific file, e.g. a font file <code>zxxrl7z.tfm</code>:</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tlmgr <span class="keyword">search</span> --<span class="keyword">global</span> --<span class="keyword">file</span> [<span class="keyword">File</span> Name]</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Extra-Packages"><a href="#Extra-Packages" class="headerlink" title="Extra Packages"></a>Extra Packages</h3><ul>
+<li>IEEEtran</li>
+<li>newtx for package <code>newtxmath</code></li>
+<li>algorithms for package <code>algorithm(floating environment)</code> &amp; <code>algorithmic</code></li>
+<li>algorithmicx for package <code>algorithmicx</code> &amp; <code>algpseudocode</code></li>
+<li>txfont for font <code>txsyb</code>, <code>txmi</code>, <code>txmia</code> , <code>txsyc</code>, <code>txr</code></li>
+<li>boondox for font <code>zxxrl7z</code></li>
+<li>tex-gyre for file <code>qtmr.pfb</code></li>
 </ul>
 
     
@@ -350,19 +328,19 @@
   <div class="entry-content">
     
       <p>Since I don’t like all the apps contained inside <code>MacTeX</code>, <code>BasicTeX</code> could be an alternative.<br>Also, <code>Skim</code> may be quite useful, I think <code>Preview</code> in OS X is enough.</p>
-<h3 id="Detailed_Steps">Detailed Steps</h3><p>Here’s how I manage to deploy the latex environment on Mac OS X El Capitan:</p>
+<h3 id="Detailed-Steps"><a href="#Detailed-Steps" class="headerlink" title="Detailed Steps"></a>Detailed Steps</h3><p>Here’s how I manage to deploy the latex environment on Mac OS X El Capitan:</p>
 <ol>
 <li><p>Install <a href="http://www.tug.org/mactex/morepackages.html" target="_blank" rel="external">BasicTeX</a></p>
 </li>
 <li><p>Install <code>Sublime Text 2</code> or 3 and <a href="https://packagecontrol.io/installation" target="_blank" rel="external">Package Control</a>, restart</p>
-<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">If Package Control is<span class="instruction"> not </span>shown in the command palette, <span class="instruction"></span><br><span class="line">check </span>`Preferences-&gt;Settings-User` to exclude Package Control from <span class="string">"ignored packages"</span>.</span><br></pre></td></tr></table></figure>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">If Package Control is<span class="built_in"> not </span>shown in the command palette, <span class="built_in"></span></div><div class="line">check `Preferences-&gt;Settings-User` to exclude Package Control from <span class="string">"ignored packages"</span>.</div></pre></td></tr></table></figure>
 </li>
 <li><p>Install <code>LaTexTools</code> from command palette with Package Control.</p>
 </li>
 <li><p>Carefully read the <code>Preferences-&gt;Package Settings-&gt;LaTexTools-&gt;README</code> or just pay attention to:</p>
 <ul>
 <li>Within El Capitan, edit your own <code>LaTeXTools.sublime-settings</code> file (in your <code>User</code> directory) and modify <code>texpath</code> by adding <code>/Library/TeX/texbin</code> as the first entry. Or just use the “LaTeXTools: Reconfigure and migrate settings” command.</li>
-<li>Install <code>latexmk</code>: open Terminal, type <code>sudo tlmgr install latexmk</code>.<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">If <span class="literal">no</span> tlmgr <span class="keyword">is</span> found, maybe you should restart your terminal.</span><br></pre></td></tr></table></figure>
+<li>Install <code>latexmk</code>: open Terminal, type <code>sudo tlmgr install latexmk</code>.<figure class="highlight maxima"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">If no tlmgr <span class="built_in">is</span> found, <span class="built_in">maybe</span> you should <span class="built_in">restart</span> your <span class="built_in">terminal</span>.</div></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
@@ -386,7 +364,7 @@
 </ul>
 </li>
 <li><p>Add following codes to the <code>builder-settings</code> of LaTeXTools.sublime-settings when build engine is <code>default</code> or <code>traditional</code></p>
-<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"program"</span> : <span class="string">"xelatex"</span>,</span><br><span class="line"><span class="string">"command"</span> : [<span class="string">"latexmk"</span>, <span class="string">"-cd"</span>, <span class="string">"-e"</span>, <span class="string">"<span class="variable">$pdflatex</span> = 'xelatex -interaction=nonstopmode -synctex=1 <span class="variable">%S</span> <span class="variable">%O</span>'"</span>, <span class="string">"-f"</span>, <span class="string">"-pdf"</span>],</span><br></pre></td></tr></table></figure>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="string">"program"</span> : <span class="string">"xelatex"</span>,</div><div class="line"><span class="string">"command"</span> : [<span class="string">"latexmk"</span>, <span class="string">"-cd"</span>, <span class="string">"-e"</span>, <span class="string">"$pdflatex = 'xelatex -interaction=nonstopmode -synctex=1 %S %O'"</span>, <span class="string">"-f"</span>, <span class="string">"-pdf"</span>],</div></pre></td></tr></table></figure>
 </li>
 </ol>
 
@@ -396,7 +374,7 @@
       
       
   <div class="tags">
-<a href="/tags/BasicTeX/">BasicTeX</a><a href="/tags/El-Capitan/">El Capitan</a><a href="/tags/Sublime-Text/">Sublime Text</a></div>
+<a href="/tags/Sublime-Text/">Sublime Text</a><a href="/tags/BasicTeX/">BasicTeX</a><a href="/tags/El-Capitan/">El Capitan</a></div>
 
       
     </footer>

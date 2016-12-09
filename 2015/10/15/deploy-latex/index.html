@@ -55,19 +55,19 @@
   <div class="entry-content">
     
       <p>Since I don’t like all the apps contained inside <code>MacTeX</code>, <code>BasicTeX</code> could be an alternative.<br>Also, <code>Skim</code> may be quite useful, I think <code>Preview</code> in OS X is enough.</p>
-<h3 id="Detailed_Steps">Detailed Steps</h3><p>Here’s how I manage to deploy the latex environment on Mac OS X El Capitan:</p>
+<h3 id="Detailed-Steps"><a href="#Detailed-Steps" class="headerlink" title="Detailed Steps"></a>Detailed Steps</h3><p>Here’s how I manage to deploy the latex environment on Mac OS X El Capitan:</p>
 <ol>
 <li><p>Install <a href="http://www.tug.org/mactex/morepackages.html" target="_blank" rel="external">BasicTeX</a></p>
 </li>
 <li><p>Install <code>Sublime Text 2</code> or 3 and <a href="https://packagecontrol.io/installation" target="_blank" rel="external">Package Control</a>, restart</p>
-<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">If Package Control is<span class="instruction"> not </span>shown in the command palette, <span class="instruction"></span><br><span class="line">check </span>`Preferences-&gt;Settings-User` to exclude Package Control from <span class="string">"ignored packages"</span>.</span><br></pre></td></tr></table></figure>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">If Package Control is<span class="built_in"> not </span>shown in the command palette, <span class="built_in"></span></div><div class="line">check `Preferences-&gt;Settings-User` to exclude Package Control from <span class="string">"ignored packages"</span>.</div></pre></td></tr></table></figure>
 </li>
 <li><p>Install <code>LaTexTools</code> from command palette with Package Control.</p>
 </li>
 <li><p>Carefully read the <code>Preferences-&gt;Package Settings-&gt;LaTexTools-&gt;README</code> or just pay attention to:</p>
 <ul>
 <li>Within El Capitan, edit your own <code>LaTeXTools.sublime-settings</code> file (in your <code>User</code> directory) and modify <code>texpath</code> by adding <code>/Library/TeX/texbin</code> as the first entry. Or just use the “LaTeXTools: Reconfigure and migrate settings” command.</li>
-<li>Install <code>latexmk</code>: open Terminal, type <code>sudo tlmgr install latexmk</code>.<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">If <span class="literal">no</span> tlmgr <span class="keyword">is</span> found, maybe you should restart your terminal.</span><br></pre></td></tr></table></figure>
+<li>Install <code>latexmk</code>: open Terminal, type <code>sudo tlmgr install latexmk</code>.<figure class="highlight maxima"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">If no tlmgr <span class="built_in">is</span> found, <span class="built_in">maybe</span> you should <span class="built_in">restart</span> your <span class="built_in">terminal</span>.</div></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
@@ -91,7 +91,7 @@
 </ul>
 </li>
 <li><p>Add following codes to the <code>builder-settings</code> of LaTeXTools.sublime-settings when build engine is <code>default</code> or <code>traditional</code></p>
-<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"program"</span> : <span class="string">"xelatex"</span>,</span><br><span class="line"><span class="string">"command"</span> : [<span class="string">"latexmk"</span>, <span class="string">"-cd"</span>, <span class="string">"-e"</span>, <span class="string">"<span class="variable">$pdflatex</span> = 'xelatex -interaction=nonstopmode -synctex=1 <span class="variable">%S</span> <span class="variable">%O</span>'"</span>, <span class="string">"-f"</span>, <span class="string">"-pdf"</span>],</span><br></pre></td></tr></table></figure>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="string">"program"</span> : <span class="string">"xelatex"</span>,</div><div class="line"><span class="string">"command"</span> : [<span class="string">"latexmk"</span>, <span class="string">"-cd"</span>, <span class="string">"-e"</span>, <span class="string">"$pdflatex = 'xelatex -interaction=nonstopmode -synctex=1 %S %O'"</span>, <span class="string">"-f"</span>, <span class="string">"-pdf"</span>],</div></pre></td></tr></table></figure>
 </li>
 </ol>
 
@@ -101,7 +101,7 @@
       
       
   <div class="tags">
-<a href="/tags/BasicTeX/">BasicTeX</a><a href="/tags/El-Capitan/">El Capitan</a><a href="/tags/Sublime-Text/">Sublime Text</a></div>
+<a href="/tags/Sublime-Text/">Sublime Text</a><a href="/tags/BasicTeX/">BasicTeX</a><a href="/tags/El-Capitan/">El Capitan</a></div>
 
       
     </footer>
